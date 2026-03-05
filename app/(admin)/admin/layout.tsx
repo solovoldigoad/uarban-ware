@@ -7,7 +7,6 @@ import {
   LayoutDashboard,
   Package,
   ShoppingCart,
-  BarChart3,
   Warehouse,
   Star,
   Bell,
@@ -27,7 +26,6 @@ const navItems = [
   { path: '/admin/products', label: 'Products', icon: Package },
   { path: '/admin/orders', label: 'Orders', icon: ShoppingCart },
   { path: '/admin/inventory', label: 'Inventory', icon: Warehouse },
-  { path: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { path: '/admin/reviews', label: 'Reviews', icon: Star },
   { path: '/admin/notifications', label: 'Notifications', icon: Bell },
 ];
