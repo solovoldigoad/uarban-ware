@@ -35,9 +35,7 @@ export default function RootLayout({
       <body
         className='min-h-screen flex flex-col font-sans'>
           <AuthProvider>
-            <Suspense fallback={<div className="h-16" />}>
-              <Navbar />
-            </Suspense>
+            <Navbar />
             {children}
             <Footer />
             <CartDrawer />

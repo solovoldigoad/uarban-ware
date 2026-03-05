@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,7 +18,7 @@ const navLinks = [
   { name: 'About', path: '/about' },
 ];
 
-export default function Navbar() {
+function NavbarContent() {
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -249,5 +249,13 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+export default function Navbar() {
+  return (
+    <Suspense fallback={<div className="h-16" />}>
+      <NavbarContent />
+    </Suspense>
   );
 }
