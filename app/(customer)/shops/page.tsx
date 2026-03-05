@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { SlidersHorizontal, X, ChevronDown } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
@@ -8,7 +8,7 @@ import ProductCard from '@/app/componets/store/productGride';
 import { products, categories, sizes, colors, priceRanges, mensCategories } from '@/data/products';
 
 
-export default function Shop() {
+function ShopContent() {
   const searchParams = useSearchParams();
   const setSearchParams = (params: URLSearchParams | Record<string, string>) => {
     const newParams = new URLSearchParams(params);
@@ -98,12 +98,12 @@ export default function Shop() {
   };
 
   const activeFiltersCount = [
-    activeCategory !== 'all' ? 1 : 0,
-    activePrice !== 'all' ? 1 : 0,
-    activeColor ? 1 : 0,
-    activeSize ? 1 : 0,
-    activeMensCategory ? 1 : 0,
-  ].reduce((a, b) => a + b, 0);
+    activeCategory !== 'all',
+    activePrice !== 'all',
+    activeMensCategory !== '',
+    activeColor !== '',
+    activeSize !== '',
+  ].filter(Boolean).length;
 
   return (
     <div>
@@ -444,5 +444,13 @@ export default function Shop() {
         </motion.div>
       )}
     </div>
+  );
+}
+
+export default function Shop() {
+  return (
+    <Suspense fallback={<div>Loading shops...</div>}>
+      <ShopContent />
+    </Suspense>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 import Navbar from "@/app/componets/layout/Navbar";
 import Footer from "@/app/componets/layout/Footer";
 import CartDrawer from "@/app/componets/sliders/CartDrawer"; 
@@ -34,7 +35,9 @@ export default function RootLayout({
       <body
         className='min-h-screen flex flex-col font-sans'>
           <AuthProvider>
-            <Navbar />
+            <Suspense fallback={<div className="h-16" />}>
+              <Navbar />
+            </Suspense>
             {children}
             <Footer />
             <CartDrawer />

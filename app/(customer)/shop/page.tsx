@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { SlidersHorizontal, X, ChevronDown } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import ProductCard from '@/app/componets/store/productGride';
 import { products, categories, sizes, colors, priceRanges, mensCategories, womensCategories } from '@/data/products';
 
-export default function Shop() {
+function ShopContent() {
   const searchParams = useSearchParams();
   const setSearchParams = (params: URLSearchParams | Record<string, string>) => {
     const newParams = new URLSearchParams(params);
@@ -507,5 +507,13 @@ export default function Shop() {
         </motion.div>
       )}
     </div>
+  );
+}
+
+export default function Shop() {
+  return (
+    <Suspense fallback={<div>Loading shop...</div>}>
+      <ShopContent />
+    </Suspense>
   );
 }

@@ -18,7 +18,7 @@ const ProductSchema = new Schema(
     isNew: { type: Boolean, default: true },
     isTrending: { type: Boolean, default: false },
   },
-  { timestamps: true }
+  { timestamps: true, suppressReservedKeysWarning: true }
 );
 
 const Product = models.Product || mongoose.model("Product", ProductSchema);

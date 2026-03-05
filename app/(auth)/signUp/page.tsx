@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -43,7 +43,7 @@ function getPasswordStrength(pw: string): { score: number; label: string; color:
   return { score, label: 'Strong', color: 'bg-green-500' };
 }
 
-export default function Signup() {
+function SignupContent() {
   const [role, setRole] = useState<'user' | 'admin'>('user');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -241,5 +241,13 @@ export default function Signup() {
         </motion.div>
       </div>
     </div>
+  );
+}
+
+export default function Signup() {
+  return (
+    <Suspense fallback={<div>Loading signup...</div>}>
+      <SignupContent />
+    </Suspense>
   );
 }
